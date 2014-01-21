@@ -28,17 +28,11 @@ class Array
   end
 
   def average
-    reduce(:+).to_f / length unless length.zero?
+    reduce(:+).to_f / length unless length.zero?  
   end
 
-    def drop_every(n)
-    modified_array = self[0..self.size-1]
-    current_index = n - 1
-    while current_index < modified_array.length
-      modified_array.delete_at(current_index)
-      current_index += n - 1
-    end
-    return modified_array
+  def drop_every(n)
+    each_slice(n).map { |slice| slice.take(n - 1) }.reduce(:+) or []
   end
 
   def combine_with(other)
