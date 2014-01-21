@@ -24,7 +24,7 @@ class Array
   def frequencies
     frequency_hash = Hash.new(0)
     self.each { |element| frequency_hash[element] += 1 }
-    return frequency_hash
+    frequency_hash
   end
 
   def average
