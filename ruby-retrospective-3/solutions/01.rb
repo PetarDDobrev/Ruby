@@ -17,11 +17,7 @@ class Integer
   end
 
   def harmonic
-    harmonic_gen = ->(curr_num, sum) { return sum if curr_num == 0
-                                       puts sum
-                                       harmonic_gen.(curr_num - 1,
-                                                     sum + 1.to_r / curr_num) }
-    return harmonic_gen.(self, Rational(0, 1))
+    (1..self).to_a.map { |number| Rational(1, number) }.reduce(:+)
   end
 
   def digits
