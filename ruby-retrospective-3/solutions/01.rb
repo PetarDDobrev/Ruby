@@ -25,10 +25,7 @@ class Integer
   end
 
   def digits
-    digits_gen = ->(n, digits_list) { return digits_list.reverse if n == 0
-                                      digits_gen.(n / 10,
-                                                  digits_list + [n % 10]) }
-    return digits_gen.(self, digits_list = [])
+    abs.to_s.chars.map(&:to_i)
   end
 end
 
