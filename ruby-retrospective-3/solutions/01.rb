@@ -28,9 +28,7 @@ class Array
   end
 
   def average
-    sum = 0.0
-    self.each { |element| sum += element}
-    return sum / self.size
+    reduce(:+).to_f / length unless length.zero?
   end
 
     def drop_every(n)
