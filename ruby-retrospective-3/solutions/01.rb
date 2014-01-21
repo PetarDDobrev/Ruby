@@ -10,10 +10,9 @@ class Integer
   end
 
   def prime_factors
-    factors = ->(n, fact_list) { return fact_list if n == 1
-                                 factor = (2..n).find {|x| n % x == 0}
-                                 factors.(n / factor, fact_list + [factor]) }
-    return factors.(self.abs, fact_list = [])
+    return [] if n == 1
+    factor = (2..n).find {|x| n % x == 0}
+    [factor] + (n / factor).prime_factors
   end
 
   def harmonic
