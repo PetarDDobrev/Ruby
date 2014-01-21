@@ -1,12 +1,7 @@
 class Integer
   def prime?
-    dividers = 2..(self / 2).abs
-    dividers.each do |divider|
-      if self % divider == 0
-        return false
-      end
-    end
-    return true
+    return false if self < 1
+    2.upto(self/2).none? { |number| remainder(number).zero? }
   end
 
   def prime_factors
