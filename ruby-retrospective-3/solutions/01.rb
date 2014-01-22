@@ -44,4 +44,3 @@ class Array
     return combine.(combined = [], self, other)
   end
 end
-

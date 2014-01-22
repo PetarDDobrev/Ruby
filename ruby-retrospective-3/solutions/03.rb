@@ -124,7 +124,7 @@ module Graphics
 
   class Canvas
     HTML_SYMBOL_LENGTH = 7
-    ASCII_CODE = {0 => '-', 1 => '@'}
+    ASCII_CODE = {0 => '-'.freeze, 1 => '@'.freeze}.freeze
     HTML_CODE = {0 => '<i></i>', 1 => '<b></b>'}
     HTML_BEGIN = ' <!DOCTYPE html>
                     <html>
@@ -150,10 +150,10 @@ module Graphics
                       </style>
                     </head>
                     <body>
-                      <div class="canvas">'
+                      <div class="canvas">'.freeze
     HTML_END = '  </div>
                 </body>
-                </html>'
+                </html>'.freeze
     def initialize(width, height)
       @width = width
       @height = height
