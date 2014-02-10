@@ -3,7 +3,7 @@ require 'io/console'
 class Console
   def initialize
   end
-  BOARD_ENCODER = {0=>' ', 1=>'S', 2=>'F'}
+  BOARD_ENCODER = {0=>' ', 1=>'S', 2=>'D', 3=>'C', 4=>'B',5=>'F', 6=>'H'}
   ROW_SEPARATOR = '   --------------------------------------- '
   BOARD_TOP = '    A   B   C   D   E   F   G   H   I   J  '
   def draw_board(board)
@@ -17,9 +17,9 @@ class Console
     puts full_board.scan(/.{43}/).join("\n")
   end
   def draw_menu
-    p '1.Battle a computer'
-    p '2.Hot-seat multiplayer'
-    p '3.exit'
+    puts '1.Battle a computer'
+    puts '2.Hot-seat multiplayer'
+    puts '3.exit'
     choice = gets.chomp.to_i
   end
   def setup_board(player)
@@ -29,22 +29,25 @@ class Console
   end
   def select_ship(ships_left)
     ships_left.each {|k, v| puts (ships_left.values.index(v)+1).to_s + ". #{k}s left: #{v}; " }
-    p 'Please select type of ship'
+    puts 'Please select type of ship'
     while true
       choice = gets.chomp.to_i - 1
       return choice if ships_left[SHIP_SET[choice]] > 0
-      p 'No more ships of that type please pick another'
+      puts 'No more ships of that type please pick another'
     end
   end
 
   def select_cordinates(ship_size)
-    p 'Write 2 cells which should be HEAD and TAIL of the ship. Only 1 ship can be in one cell!!!.'
+    puts 'Write 2 cells which should be HEAD and TAIL of the ship. Only 1 ship can be in one cell!!!.'
     puts "Selected ship size is #{ship_size}. Example A1 A#{(ship_size)}."
-    p 'Write HEAD: '
+    puts 'Write HEAD: '
     head = gets.chomp
-    p 'Write TAIL: '
+    puts 'Write TAIL: '
     tail = gets.chomp
     [head,tail]
   end
-end
 
+  def incorrect_cordinates
+    p 'Incorrect cordinates. Please pick other.'
+  end
+end

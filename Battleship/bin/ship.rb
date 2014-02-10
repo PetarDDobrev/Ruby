@@ -13,15 +13,34 @@ class Ship
     head_position = head.split(//,2)
     tail_position = tail.split(//,2)
     return false if not correct_positions(head_position, tail_position)
-    if head_position[0] == tail_position[0]
-      numbers = (0..@size-1).to_a
-      @cordinates = numbers.map{ |x| head_position[0] + (x + head_position[1].ord).chr}
+    head_value = BOARD_ALPHABET.index(head_position[0]) + BOARD_NUMBERS.index(head_position[1])
+    tail_value = BOARD_ALPHABET.index(tail_position[0]) + BOARD_NUMBERS.index(tail_position[1])
+    if head_value > tail_value
+      set_tail_to_head(tail_position, head_position)
     else
-      numbers = (0..@size-1).to_a
-      @cordinates = numbers.map{ |x| (head_position[0].ord + x).chr + head_position[1]}
+      set_head_to_tail(head_position, tail_position)
     end
     true
+  end
 
+  def set_head_to_tail(head, tail)
+    if head[0] == tail[0]
+      numbers = (0..@size-1).to_a
+      @cordinates = numbers.map{ |x| head[0] + (x + head[1].ord).chr}
+    else
+      numbers = (0..@size-1).to_a
+      @cordinates = numbers.map{ |x| (head[0].ord + x).chr + head[1]}
+    end
+  end
+
+  def set_tail_to_head(head, tail)
+    if head[0] == tail[0]
+      numbers = (0..@size-1).to_a
+      @cordinates = numbers.map{ |x| head[0] + (tail[1].ord - x).chr}
+    else
+      numbers = (0..@size-1).to_a
+      @cordinates = numbers.map{ |x| (tail[0].ord - x).chr + head[1]}
+    end
   end
 
   def correct_positions(head, tail)
@@ -40,8 +59,3 @@ class Ship
   end
 
 end
-
- # a = ["A1", "A4"]
- # s =Ship.new(4)
- # p a[0], a[1] , c = a[0].split(//,2), b = a[1].split(//,2)
- # p s.correct_positions(c, b),s.set_position(a[0], a[1])

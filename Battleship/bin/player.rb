@@ -17,10 +17,21 @@ class Player
   end
 
   def ship_ready(ship)
-    p ship_type = SHIP_SET.reverse[ship.size-1]
-    p @ships[ship_type].push ship
+    ship_type = SHIP_SET.reverse[ship.size-1]
+    @ships[ship_type].push ship
     @ships_unset[ship_type] = @ships_unset[ship_type] - 1 
   end
-end
 
-#p Hash[SHIP_SET.collect { |k| [k, []]} ]
+  def generate_board
+    ships_left_size = [4,3,3,2,2,2,1,1,1,1]
+    ships_left_size.each do |n|
+      ship = @my_board.random_cordinates(n)
+      ship_ready(ship)
+    end
+    true
+  end
+
+  def random_cordinates(ship_size)
+    cordinate_x = BOARD_ALPHABET[rand(10)]
+  end
+end

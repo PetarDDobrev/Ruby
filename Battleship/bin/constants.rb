@@ -2,8 +2,8 @@ ALIVE = true
 DEAD = false
 
 EMPTY = 0
-FILLED = 1
-FIRED = 2
+FIRED = 5
+HIT = 6
 
 SINGLE = 1
 HOT_SEAT = 2

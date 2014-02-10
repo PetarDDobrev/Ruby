@@ -16,34 +16,46 @@ class Game
     while not exit
       exit = menu if @game_state == MAIN_MENU
       single_player if @game_state == SINGLE
+      hot_seat if @game_state == HOT_SEAT
     end
   end
 
   def single_player
-    if not @player_one.ready?
+    while not @player_one.ready?
       @render.draw_board(@player_one.my_board.board)
       ship_size = MAX_SHIP_SIZE - @render.select_ship(@player_one.ships_unset)
       ship = Ship.new(ship_size)
       correct_cordinates = false
       while not correct_cordinates
         p cordinates = @render.select_cordinates(ship_size)
-        p 'cord again' 
         if ship.set_position(cordinates[0], cordinates[1])
           correct_cordinates = true if @player_one.my_board.put_ship ship
           @player_one.ship_ready(ship)
         end
-        #error: incorrect cordinates
+        @render.incorrect_cordinates
       end
     end
-
   end
+
+  def hot_seat
+    if not @player_one.ready?
+      @player_one.generate_board
+    end
+    @render.draw_board(@player_one.my_board.board)
+
+    if not @player_two.ready?
+      @player_two.generate_board
+    end
+    @render.draw_board(@player_two.my_board.board)
+  end 
 
   def menu
     choice = @render.draw_menu
-    if choice == SINGLE
-      @game_state = SINGLE
-      puts 'Battle agains Computer begins. Good Luck!'
-    end
+    # if choice == SINGLE
+    #   @game_state = SINGLE
+    #   puts 'Battle agains Computer begins. Good Luck!'
+    # end
+    @game_state = choice
     choice == EXIT
   end
 end
