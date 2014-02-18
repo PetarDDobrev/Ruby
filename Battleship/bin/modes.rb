@@ -23,17 +23,18 @@ class Mode
   end
 
   def loose?(player)
-    ships_left = player.ships.reject{|s| s.dead?}
+    ships_left = player.ships.reject{|s| s.dead?} if RULES == 'Classic'
+    ships_left = player.ships.reject{|s| s.hit?} if RULES == 'NonClassic'
     return true if ships_left.length == 0
     false
   end
 
   def player_shoot(player_one, player_two)
-    @render.draw_board player_one.enemy_board 
+    @render.draw_board player_two.my_board 
     #@render.draw_board @player_one.enemy_board
     ships_left = player_one.ships.reject{|s| s.dead?}.length
+    puts "Player #{player_one.id} turn to shoot!"
     puts "You have #{ships_left} ships left"
-    puts 'Your turn to shoot!'
     cell = @render.select_cell player_one.my_board
     result = player_one.shoot player_two, cell
     puts 'You hit enemy ship!' if result
@@ -45,6 +46,7 @@ class Mode
   end
 
 end
+
 class SinglePlayer < Mode
   def initialize(render)
     @player_one = Player.new 1
@@ -53,7 +55,7 @@ class SinglePlayer < Mode
     initialize_ai @player_two
     @render.ai_ready
     initialize_player @player_one
-    @render.player_ready(@player_one.id)
+    @render.player_ready @player_one.id
   end
 
   def play
@@ -73,5 +75,24 @@ class SinglePlayer < Mode
   def initialize_ai(player)
     @render.announce_ai
     player.generate_board
+  end
+end
+
+class HotSeat < Mode
+  def initialize(render)
+    @player_one = Player.new 1
+    @player_two = Player.new 2
+    @render = render
+    initialize_player @player_one
+    @render.player_ready @player_one.id
+    initialize_player @player_two
+    @render.player_ready @player_two.id
+  end
+
+  def play
+    game_state = SINGLE    
+    game_state = MAIN_MENU if player_shoot @player_one, @player_two 
+    game_state = MAIN_MENU if player_shoot @player_two, @player_one 
+    game_state
   end
 end

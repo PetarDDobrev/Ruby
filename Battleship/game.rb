@@ -38,6 +38,7 @@ class Game
     # end
     @game_state = choice
     @current_game = SinglePlayer.new(@render) if choice == SINGLE
+    @current_game = HotSeat.new(@render) if choice == HOT_SEAT
     choice == EXIT
   end
 end

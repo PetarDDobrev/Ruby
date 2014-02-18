@@ -1,3 +1,5 @@
 RENDER = 'Console'.freeze
-RULES = 'Classic'.freeze
+#Classic/NonClassic
+RULES = 'NonClassic'.freeze
+#automatic board setup
 BOARDS_GENERATED = true
