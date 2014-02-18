@@ -3,12 +3,12 @@ require_relative 'ship'
 require_relative 'board'
 
 class Player
-  attr_accessor :id, :my_board, :enemy_board, :ships_unset
+  attr_accessor :id, :my_board, :enemy_board, :ships_unset, :ships
   def initialize(id)
     @id = id
     @my_board = Board.new
     @enemy_board = Board.new
-    @ships = Hash[SHIP_SET.collect { |k| [k, []]} ]
+    @ships = []
     @ships_unset = Hash[SHIP_SET.collect { |k| [k, SHIP_SET.index(k) + 1]} ]
   end
 
@@ -18,8 +18,14 @@ class Player
 
   def ship_ready(ship)
     ship_type = SHIP_SET.reverse[ship.size-1]
-    @ships[ship_type].push ship
+    @ships.push ship
     @ships_unset[ship_type] = @ships_unset[ship_type] - 1 
+  end
+  
+  def ship_hit(cell)
+    @ships.each do |ship|
+      ship.hit cell
+    end 
   end
 
   def generate_board
@@ -30,8 +36,28 @@ class Player
     end
     true
   end
+  
 
-  def random_cordinates(ship_size)
-    cordinate_x = BOARD_ALPHABET[rand(10)]
+  def shoot(player, cell)
+    @enemy_board.set_cell(cell, FIRED) if player.my_board.cell(cell) == 0
+    if [1,2,3,4].include? player.my_board.cell(cell) then
+      @enemy_board.set_cell(cell, HIT)
+      player.ship_hit cell
+      return true
+    end
+    false
+  end
+end
+
+class AI < Player
+  def shoot(player)
+    target_cell = @enemy_board.random_cordinate
+    @enemy_board.set_cell(target_cell, FIRED) if player.my_board.cell(target_cell) == 0
+    if [1,2,3,4].include? player.my_board.cell(target_cell) then
+      @enemy_board.set_cell(target_cell, HIT)
+      player.ship_hit target_cell
+      return true
+    end
+    false
   end
 end

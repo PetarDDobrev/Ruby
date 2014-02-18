@@ -1,5 +1,5 @@
-ALIVE = true
-DEAD = false
+ALIVE = 1
+DEAD = 0
 
 EMPTY = 0
 FIRED = 5

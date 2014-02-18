@@ -1,12 +1,14 @@
 require_relative 'constants'  
 
 class Ship
-  attr_accessor :cordinates, :size
+  attr_accessor :cordinates, :size, :states
   def initialize(size)
     @cordinates = Array.new(size,0)
     @states = Array.new(size,ALIVE)
     @size = size
   end
+  
+
 
   def set_position(head, tail)
     #return false if head.length > 3 or tail.size > 3
@@ -58,4 +60,13 @@ class Ship
     false
   end
 
+  def hit?
+    return true if @states.reduce(:+) < @size
+    false
+  end
+
+  def hit(cell)
+    cell_index = @cordinates.index(cell)
+    @states[cell_index] = DEAD unless cell_index == nil
+  end
 end

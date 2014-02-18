@@ -8,7 +8,7 @@ class Console
   BOARD_TOP = '    A   B   C   D   E   F   G   H   I   J  '
   def draw_board(board)
     rows = (0..9).to_a
-    board_values = board.values
+    board_values = board.board.values
     board_rows = rows.map{ |x|  board_values.drop(x*10).take 10 }
     full_board = BOARD_TOP + ROW_SEPARATOR
     board_rows.map!{ |x| x.map!{ |y| ' ' + BOARD_ENCODER[y] + ' |'}.reduce(:+)}    
@@ -16,6 +16,16 @@ class Console
     full_board = full_board + 10.to_s + '|' + board_rows[9] + ROW_SEPARATOR
     puts full_board.scan(/.{43}/).join("\n")
   end
+
+  def announce_player(player_id)
+    puts 'First player is setting up board.' if player_id == 1
+    puts 'Second player is setting up board.' if player_id == 2
+  end
+
+  def announce_ai
+    puts 'Ai player is setting up his board.'
+  end
+
   def draw_menu
     puts '1.Battle a computer'
     puts '2.Hot-seat multiplayer'
@@ -49,5 +59,15 @@ class Console
 
   def incorrect_cordinates
     p 'Incorrect cordinates. Please pick other.'
+  end
+
+  def select_cell(board)
+    puts 'Please select a cell to shoot at. Example A2'
+    cell = gets.chomp
+    while board.board.keys.include? cell == false
+      puts 'Incorrect cell. Please select another cell to shoot at. Example A2'
+      cell = gets.chomp
+    end
+    cell
   end
 end

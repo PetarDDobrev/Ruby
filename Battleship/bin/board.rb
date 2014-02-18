@@ -10,6 +10,10 @@ class Board
 
   def set_cell(cell, state)
     @board[cell] = state
+  end 
+  
+  def cell(cell)
+    @board[cell]
   end
 
   def put_ship(ship)
@@ -18,14 +22,20 @@ class Board
     true
   end
 
-  def space_available?(ship)
+  def random_cordinate()
+    cordinate = BOARD_ALPHABET[rand(10)] + BOARD_NUMBERS[rand(10)]
+    while @board[cordinate] != 0
+      cordinate = BOARD_ALPHABET[rand(10)] + BOARD_NUMBERS[rand(10)]
+    end
+    cordinate
   end
+
   def random_cordinates(ship_size)
     ship = Ship.new ship_size
     ship_size = ship_size - 1
     flag = false
     while not flag      
-      cordinate_x = BOARD_ALPHABET[rand(10)] + BOARD_NUMBERS[rand(10)]
+      cordinate_x = random_cordinate
       head_position = cordinate_x.split(//,2)
       cordinate_y = CORDINATES.map{|x| (head_position[0].ord + x[0]*ship_size).chr + (head_position[1].to_i+ x[1]*ship_size).to_s}
       cordinate_y = cordinate_y[rand(4)]
