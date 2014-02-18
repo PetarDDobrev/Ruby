@@ -58,7 +58,7 @@ class Console
   end
 
   def incorrect_cordinates
-    p 'Incorrect cordinates. Please pick other.'
+    puts 'Incorrect cordinates. Please pick other.'
   end
 
   def select_cell(board)
@@ -69,5 +69,23 @@ class Console
       cell = gets.chomp
     end
     cell
+  end
+
+  def ai_ready
+    puts 'Ai ready to battle'
+  end
+
+  def ai_win
+    puts 'AI wins the battle!'
+  end
+
+  def player_ready(id)
+    puts 'First player ready to battle.' if id == 1
+    puts 'Second player ready to battle.' if id == 2
+  end
+
+  def player_win(id)
+    puts 'First player wins to battle!' if id == 1
+    puts 'Second player wins to battle!' if id == 2
   end
 end
