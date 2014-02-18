@@ -30,11 +30,10 @@ class Mode
   end
 
   def player_shoot(player_one, player_two)
-    @render.draw_board player_two.my_board 
-    #@render.draw_board @player_one.enemy_board
     ships_left = player_one.ships.reject{|s| s.dead?}.length
     puts "Player #{player_one.id} turn to shoot!"
     puts "You have #{ships_left} ships left"
+    @render.draw_board player_one.enemy_board
     cell = @render.select_cell player_one.my_board
     result = player_one.shoot player_two, cell
     puts 'You hit enemy ship!' if result
@@ -49,6 +48,7 @@ end
 
 class SinglePlayer < Mode
   def initialize(render)
+    @turn = 0
     @player_one = Player.new 1
     @player_two = AI.new 2
     @render = render
@@ -59,11 +59,14 @@ class SinglePlayer < Mode
   end
 
   def play
+    @turn = @turn + 1
+    @render.current_turn(@turn)
     game_state = SINGLE
     puts 'AI shooting!'
     
     result = @player_two.shoot @player_one
     puts 'AI got hit one of your ships' if result
+    @render.draw_board @player_two.enemy_board if AI_ENEMY_BOARD
     if loose?(@player_one) then
       puts 'AI Wins!'
       game_state = MAIN_MENU
@@ -85,8 +88,10 @@ class HotSeat < Mode
     @render = render
     initialize_player @player_one
     @render.player_ready @player_one.id
+    @render.next_player
     initialize_player @player_two
     @render.player_ready @player_two.id
+    @render.next_player
   end
 
   def play

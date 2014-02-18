@@ -26,6 +26,15 @@ class Console
     puts 'Ai player is setting up his board.'
   end
 
+  def next_player
+    puts "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+          \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  end
+
+  def current_turn(turn)
+    puts "\n\n          TURN : #{turn}"
+  end
+
   def draw_menu
     puts '1.Battle a computer'
     puts '2.Hot-seat multiplayer'
