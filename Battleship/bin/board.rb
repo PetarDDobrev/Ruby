@@ -30,7 +30,7 @@ class Board
     cordinate
   end
 
-  def random_cordinates(ship_size)
+  def ship_random_cordinates(ship_size)
     ship = Ship.new ship_size
     ship_size = ship_size - 1
     flag = false

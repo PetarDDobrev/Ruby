@@ -4,9 +4,8 @@ require_relative 'board'
 require_relative 'highscore'
 
 class Player
-  attr_accessor :id, :user, :my_board, :enemy_board, :ships_unset, :ships
-  def initialize(id)
-    @id = id
+  attr_accessor :user, :my_board, :enemy_board, :ships_unset, :ships
+  def initialize
     @user = User.new
     @my_board = Board.new
     @enemy_board = Board.new
@@ -33,7 +32,7 @@ class Player
   def generate_board
     ships_left_size = [4,3,3,2,2,2,1,1,1,1]
     ships_left_size.each do |n|
-      ship = @my_board.random_cordinates(n)
+      ship = @my_board.ship_random_cordinates(n)
       ship_ready(ship)
     end
     true

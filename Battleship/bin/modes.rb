@@ -68,8 +68,8 @@ end
 class SinglePlayer < Mode
   def initialize(render,high_score)
     @turn = 0
-    @player_one = Player.new 1
-    @player_two = AI.new 2
+    @player_one = Player.new
+    @player_two = AI.new
     @render = render
     @high_score = high_score
     initialize_ai @player_two
@@ -106,8 +106,8 @@ end
 class HotSeat < Mode
   def initialize(render,high_score)
     @turn = 0
-    @player_one = Player.new 1
-    @player_two = Player.new 2
+    @player_one = Player.new
+    @player_two = Player.new
     @render = render
     @high_score = high_score
     initialize_player @player_one
