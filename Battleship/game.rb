@@ -22,10 +22,6 @@ class Game
 
   def menu
     choice = @render.draw_menu
-    # if choice == SINGLE
-    #   @game_state = SINGLE
-    #   puts 'Battle agains Computer begins. Good Luck!'
-    # end
     @game_state = choice unless choice == HIGHSCORE
     @render.print_highscore_table @high_score.users.take(20) if choice == HIGHSCORE
     @current_game = SinglePlayer.new(@render,@high_score) if choice == SINGLE
@@ -35,4 +31,4 @@ class Game
 end
 
 g = Game.new
-g.run
+g.run 

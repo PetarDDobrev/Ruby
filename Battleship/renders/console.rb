@@ -75,8 +75,12 @@ class Console
   end
 
   def username
-    puts 'Please write your name: '
-    name = gets.chomp
+    name = "qwertyuiopa"
+    while name.length > 10
+      puts 'Please write your name(max 10 symbols): '
+      name = gets.chomp
+    end
+    name
   end
 
   def password(user, exists)
@@ -87,7 +91,12 @@ class Console
       puts "You created a new user with name #{user.name}."
       puts 'Please type a password or just press enter for no password.'
     end
-    password = gets.chomp
+    password = "qwertyuiopa"
+    while password.length > 10
+      puts "The password must not be more then 10 symbols!"
+      password = gets.chomp
+    end
+    password
   end
 
   def print_highscore_table(users)
