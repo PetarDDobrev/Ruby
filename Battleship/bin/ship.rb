@@ -1,7 +1,10 @@
 require_relative 'constants'  
 
+#ship class
 class Ship
   attr_accessor :cordinates, :size, :states
+  #ship object is initialized with size of 1,2,3,4
+  #cordinates is array of the cells which are occupied by the ship 
   def initialize(size)
     @cordinates = Array.new(size,0)
     @states = Array.new(size,ALIVE)

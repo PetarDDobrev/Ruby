@@ -14,7 +14,8 @@ class Console
     board_rows.map!{ |x| x.map!{ |y| ' ' + BOARD_ENCODER[y] + ' |'}.reduce(:+)}    
     (0..8).to_a.each { |x| full_board = full_board + (x+1).to_s + ' |' + board_rows[x] + ROW_SEPARATOR}
     full_board = full_board + 10.to_s + '|' + board_rows[9] + ROW_SEPARATOR
-    puts full_board.scan(/.{43}/).join("\n")
+    a = full_board.scan(/.{43}/).join("\n")
+    puts a
   end
 
   def next_player

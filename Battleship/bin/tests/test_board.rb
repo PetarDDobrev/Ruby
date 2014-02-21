@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require '../board'
-require '../ship'
+require '../../renders/console'
 
 class TestBoard < MiniTest::Unit::TestCase
   def setup
