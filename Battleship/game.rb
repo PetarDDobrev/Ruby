@@ -27,7 +27,7 @@ class Game
     #   puts 'Battle agains Computer begins. Good Luck!'
     # end
     @game_state = choice unless choice == HIGHSCORE
-    @render.print_highscore_table @high_score.users if choice == HIGHSCORE
+    @render.print_highscore_table @high_score.users.take(20) if choice == HIGHSCORE
     @current_game = SinglePlayer.new(@render,@high_score) if choice == SINGLE
     @current_game = HotSeat.new(@render,@high_score) if choice == HOT_SEAT
     choice == EXIT

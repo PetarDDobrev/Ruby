@@ -28,11 +28,11 @@ class Mode
     correct_user_info = false
     while not correct_user_info
       username = @render.username
-      exists, player.user = @highscore.user_exists? username
+      exists, player.user = @high_score.user_exists? username
       player.user.name = username unless exists
-      @highscore.add_user player.user unless exists
+      @high_score.add_user player.user unless exists
       password = @render.password player.user, exists
-      correct_user_info = @highscore.correct_password? player.user,exists, password
+      correct_user_info = @high_score.correct_password? player.user,exists, password
     end
     @render.print_user(player.user)
   end
@@ -57,7 +57,7 @@ class Mode
       player_one.user.add_points(ships_left)
       player_one.user.win
       player_two.user.lose
-      @highscore.save
+      @high_score.save
       return true
     end
     false
@@ -66,12 +66,12 @@ class Mode
 end
 
 class SinglePlayer < Mode
-  def initialize(render,highscore)
+  def initialize(render,high_score)
     @turn = 0
     @player_one = Player.new 1
     @player_two = AI.new 2
     @render = render
-    @highscore = highscore
+    @high_score = high_score
     initialize_ai @player_two
     @render.ai_ready
     initialize_player @player_one
@@ -90,7 +90,7 @@ class SinglePlayer < Mode
     if loose?(@player_one) then
       puts 'AI Wins!'
       @player_one.user.lose
-      @highscore.save
+      @high_score.save
       game_state = MAIN_MENU
     end    
     game_state = MAIN_MENU if player_shoot @player_one, @player_two 
@@ -104,12 +104,12 @@ class SinglePlayer < Mode
 end
 
 class HotSeat < Mode
-  def initialize(render,highscore)
+  def initialize(render,high_score)
     @turn = 0
     @player_one = Player.new 1
     @player_two = Player.new 2
     @render = render
-    @highscore = highscore
+    @high_score = high_score
     initialize_player @player_one
     @render.next_player
     @render.player_ready @player_one.user.name

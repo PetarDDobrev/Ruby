@@ -91,9 +91,9 @@ class Console
   end
 
   def print_highscore_table(users)
-    puts "\n\n" + "HIGH SCORES".center
-    puts ("%-15s" % "name") + ("%15s" % "points") + ("%8s" % "wins") + ("%8s" % "losses") + "\n\n"
-    users.each { |u| puts ("%-15s" % "#{u.name}") + ("%15s" % "#{u.points}") + ("%8s" % "#{u.wins}") + ("%8s" % "#{u.losses}") + "\n\n"}
+    puts "\n\n" + "HIGH SCORES".center(50) + "\n\n"
+    puts "name".ljust(15) + "points".rjust(15) + "wins".rjust(10) + "losses".rjust(10) + "\n\n"
+    users.each { |u| puts "#{u.name}".ljust(15) + "#{u.points}".rjust(15) + "#{u.wins}".rjust(10) + "#{u.losses}".rjust(10) + "\n"}
   end 
 
   def print_user(user)
