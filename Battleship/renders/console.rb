@@ -23,7 +23,7 @@ class Console
   end
 
   def current_turn(turn)
-    puts "\n\n          TURN : #{turn}"
+    puts "\n\n" + "TURN : #{turn}".center(50)
   end
 
   def draw_menu
@@ -34,18 +34,16 @@ class Console
     choice = gets.chomp.to_i
   end
 
-  def setup_board(player)
-    player.ships_unset.each {|k, v| puts (player.ships_unset.values.index(v)+1).to_s + ". #{k}s left: #{v}; " }
-    p 'Please select type of ship'
-    choice = gets.chomp.to_i
-  end
-
   def select_ship(ships_left)
     ships_left.each {|k, v| puts (ships_left.values.index(v)+1).to_s + ". #{k}s left: #{v}; " }
     puts 'Please select type of ship'
     while true
-      choice = gets.chomp.to_i - 1
-      return choice if ships_left[SHIP_SET[choice]] > 0
+      choice = gets.chomp.to_i
+      if not [1,2,3,4].include? choice then
+        puts 'Incorrect number. Please choose number between 1 and 4'
+        next
+      end
+      return choice - 1 if ships_left[SHIP_SET[choice-1]] > 0
       puts 'No more ships of that type please pick another'
     end
   end
