@@ -18,7 +18,7 @@ class HighScore
   end
 
   def save
-    high_score = File.open(@file_name,'w')
+    high_score = File.open(@file_name,"w")
     users_data_coded = ''
     @users.sort! { |a,b| b.points <=> a.points }
     @users.each { |u| users_data_coded = users_data_coded + u.to_s(Cryptogram.new.encode) }
@@ -59,7 +59,12 @@ class User
     @password = ''
     @wins = @losses = @points = 0
   end
-
+  
+  def set_user(name,password,wins,losses,points)
+    @name, @password = name, password
+    @wins, @losses, @points = wins, losses, points
+  end
+  
   def to_s(encoder)
     encoder
     attributes.map{|n| encoder.call n.to_s}.join('!') + '#'
@@ -77,12 +82,15 @@ class User
   def add_points(points)
     @points = @points + points
   end
+
   def win
     @wins = @wins.next
   end
+
   def lose
     @losses = @losses.next
   end
+
   def attributes
     [@name, @password, @wins, @losses, @points]
   end

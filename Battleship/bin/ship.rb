@@ -7,8 +7,6 @@ class Ship
     @states = Array.new(size,ALIVE)
     @size = size
   end
-  
-
 
   def set_position(head, tail)
     #return false if head.length > 3 or tail.size > 3

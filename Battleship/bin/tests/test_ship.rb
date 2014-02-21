@@ -51,5 +51,4 @@ class TestShip < MiniTest::Unit::TestCase
     @ship.set_position('D1','A1')
     assert_equal @ship.cordinates, ['D1', 'C1', 'B1', 'A1']    
   end
-
 end
