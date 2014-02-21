@@ -1,11 +1,13 @@
 require_relative 'constants'
 require_relative 'ship'
 require_relative 'board'
+require_relative 'highscore'
 
 class Player
-  attr_accessor :id, :my_board, :enemy_board, :ships_unset, :ships
+  attr_accessor :id, :user, :my_board, :enemy_board, :ships_unset, :ships
   def initialize(id)
     @id = id
+    @user = User.new
     @my_board = Board.new
     @enemy_board = Board.new
     @ships = []

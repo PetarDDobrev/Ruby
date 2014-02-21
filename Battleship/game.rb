@@ -8,6 +8,8 @@ class Game
     @render = Console.new if RENDER == 'Console'
     @game_state = MAIN_MENU
     @current_game
+    @high_score = HighScore.new 'classic.hsc' if RULES == 'Classic'
+    @high_score = HighScore.new 'nonclassic.hsc' if RULES == 'NonClassic'
   end
 
   def run
@@ -18,27 +20,16 @@ class Game
     end
   end
 
-  def hot_seat
-    if not @player_one.ready?
-      @player_one.generate_board
-    end
-    @render.draw_board(@player_one.my_board)
-
-    if not @player_two.ready?
-      @player_two.generate_board
-    end
-    @render.draw_board(@player_two.my_board)
-  end 
-
   def menu
     choice = @render.draw_menu
     # if choice == SINGLE
     #   @game_state = SINGLE
     #   puts 'Battle agains Computer begins. Good Luck!'
     # end
-    @game_state = choice
-    @current_game = SinglePlayer.new(@render) if choice == SINGLE
-    @current_game = HotSeat.new(@render) if choice == HOT_SEAT
+    @game_state = choice unless choice == HIGHSCORE
+    @render.print_highscore_table @high_score.users if choice == HIGHSCORE
+    @current_game = SinglePlayer.new(@render,@high_score) if choice == SINGLE
+    @current_game = HotSeat.new(@render,@high_score) if choice == HOT_SEAT
     choice == EXIT
   end
 end

@@ -17,15 +17,6 @@ class Console
     puts full_board.scan(/.{43}/).join("\n")
   end
 
-  def announce_player(player_id)
-    puts 'First player is setting up board.' if player_id == 1
-    puts 'Second player is setting up board.' if player_id == 2
-  end
-
-  def announce_ai
-    puts 'Ai player is setting up his board.'
-  end
-
   def next_player
     puts "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
           \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
@@ -38,14 +29,17 @@ class Console
   def draw_menu
     puts '1.Battle a computer'
     puts '2.Hot-seat multiplayer'
-    puts '3.exit'
+    puts '3.High scores'
+    puts '4.exit'
     choice = gets.chomp.to_i
   end
+
   def setup_board(player)
     player.ships_unset.each {|k, v| puts (player.ships_unset.values.index(v)+1).to_s + ". #{k}s left: #{v}; " }
     p 'Please select type of ship'
     choice = gets.chomp.to_i
   end
+
   def select_ship(ships_left)
     ships_left.each {|k, v| puts (ships_left.values.index(v)+1).to_s + ". #{k}s left: #{v}; " }
     puts 'Please select type of ship'
@@ -80,6 +74,40 @@ class Console
     cell
   end
 
+  def username
+    puts 'Please write your name: '
+    name = gets.chomp
+  end
+
+  def password(user, exists)
+    if exists then
+      puts "Welcome #{user.name}, please enter your password."
+      puts "If you want to sign with on username type 'n'."      
+    else
+      puts "You created a new user with name #{user.name}."
+      puts 'Please type a password or just press enter for no password.'
+    end
+    password = gets.chomp
+  end
+
+  def print_highscore_table(users)
+    puts "\n\n" + "HIGH SCORES".center
+    puts ("%-15s" % "name") + ("%15s" % "points") + ("%8s" % "wins") + ("%8s" % "losses") + "\n\n"
+    users.each { |u| puts ("%-15s" % "#{u.name}") + ("%15s" % "#{u.points}") + ("%8s" % "#{u.wins}") + ("%8s" % "#{u.losses}") + "\n\n"}
+  end 
+
+  def print_user(user)
+    puts "\n#{user.name} has #{user.wins} wins, #{user.losses} losses and #{user.points} points\n"
+  end
+
+  def announce_player(name)
+    puts "#{name} is setting up board."
+  end
+
+  def announce_ai
+    puts 'Ai player is setting up his board.'
+  end
+  
   def ai_ready
     puts 'Ai ready to battle'
   end
@@ -88,13 +116,15 @@ class Console
     puts 'AI wins the battle!'
   end
 
-  def player_ready(id)
-    puts 'First player ready to battle.' if id == 1
-    puts 'Second player ready to battle.' if id == 2
+  def player_ready(name)
+    puts "#{name} is ready to battle."
   end
 
-  def player_win(id)
-    puts 'First player wins to battle!' if id == 1
-    puts 'Second player wins to battle!' if id == 2
+  def player_win(name)
+    puts "#{name} wins teh battle."
+  end
+
+  def message(text)
+    puts text
   end
 end

@@ -1,6 +1,6 @@
 RENDER = 'Console'.freeze
 #Classic/NonClassic
-RULES = 'NonClassic'.freeze
+RULES = 'Classic'.freeze
 #automatic board setup
 BOARDS_GENERATED = true
 #allows the player to see where the AI fired
