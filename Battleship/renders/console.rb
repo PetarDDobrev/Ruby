@@ -77,7 +77,7 @@ class Console
     head = gets.chomp
     puts 'Write TAIL:'
     tail = gets.chomp
-    [head,tail]
+    [head.upcase,tail.upcase]
   end
 
   ##prints and error message for incorect cordiantes
@@ -89,13 +89,15 @@ class Console
   #returns a cell
   #board argument is used to getting array of all possible cells
   #this array is used for checkign the input
-  #if the input is not in the array error is printed and waits for new input 
+  #if the input is not in the array error 
+  #is printed and waits for new input 
   def select_cell(board)
     puts 'Please select a cell to shoot at. Example A2'
     cell = gets.chomp
     while board.board.keys.include? cell == false
       puts 'Incorrect cell. Please select another cell to shoot at. Example A2'
-      cell = gets.chomp.upcase
+      cell = gets.chomp
+      cell.upcase
     end
     cell
   end
